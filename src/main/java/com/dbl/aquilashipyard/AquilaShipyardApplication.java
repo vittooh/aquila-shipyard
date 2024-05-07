@@ -9,5 +9,4 @@ public class AquilaShipyardApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AquilaShipyardApplication.class, args);
 	}
-
 }
