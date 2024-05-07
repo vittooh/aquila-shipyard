@@ -3,4 +3,9 @@ spring:
     name : aquila-shipyard
   data:
     mongodb:
-      uri: mongodb://${MONGO_USER}:${MONGO_PWD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}?authSource=admin
+      host: ${MONGO_HOST}
+      port: ${MONGO_PORT}
+      username: ${MONGO_USER}
+      password: ${MONGO_PWD}
+      database: ${MONGO_DATABASE}
+      authentication-database: admin

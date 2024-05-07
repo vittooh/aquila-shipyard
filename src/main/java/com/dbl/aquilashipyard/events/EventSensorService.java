@@ -1,10 +1,14 @@
 package com.dbl.aquilashipyard.events;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EventSensorService {
+
+    private final Logger logger = LoggerFactory.getLogger(EventSensorService.class);
 
     private final EventSensorRepository eventSensorRepository;
 
@@ -13,8 +17,9 @@ public class EventSensorService {
     }
 
     public EventSensor save(EventSensorDTO eventSensorDTO) {
+        logger.info("Saving sensor event");
         // long, then lat
-        return eventSensorRepository.save(
+        EventSensor eventSensor=  eventSensorRepository.save(
                 new EventSensor(
                         eventSensorDTO.sensorName,
                         new GeoJsonPoint(
@@ -23,11 +28,16 @@ public class EventSensorService {
                         )
                 )
         );
+        logger.info("Sensor Event was saved");
+        return eventSensor;
     }
 
     public EventSensor getEventSensorById(String id) throws Exception {
-        return eventSensorRepository.findById("id").orElseThrow(
-                () -> new Exception("Deu ruim no id " + id)
+        logger.info("Searching event sensor by id");
+        EventSensor eventSensor =  eventSensorRepository.findById(id).orElseThrow(
+                () -> new Exception("Event was not found with id::  " + id)
         );
+        logger.info("Event was found");
+        return eventSensor;
     }
 }

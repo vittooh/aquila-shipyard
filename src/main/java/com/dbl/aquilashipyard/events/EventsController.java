@@ -13,9 +13,12 @@ public class EventsController {
     }
 
     @PostMapping
+    //TODO  documentar código com swagger
+    //TODO fazer filtro de consulta por data e hora e sensor name
     public EventSensorDTO persistEvent(@RequestBody EventSensorDTO eventSensorDTO) {
         EventSensor eventSensor = eventSensorService.save(eventSensorDTO);
         return new EventSensorDTO(
+                eventSensor.id,
                 eventSensor.sensorName,
                 eventSensor.geoJsonPoint.getCoordinates()
         );
@@ -26,6 +29,7 @@ public class EventsController {
     public EventSensorDTO getEvent(@PathVariable("id") String id) throws Exception {
         EventSensor eventSensor = eventSensorService.getEventSensorById(id);
         return new EventSensorDTO(
+                eventSensor.id,
                 eventSensor.sensorName,
                 eventSensor.geoJsonPoint.getCoordinates()
         );
