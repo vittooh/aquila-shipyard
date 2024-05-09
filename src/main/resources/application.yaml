@@ -9,3 +9,18 @@ spring:
       password: ${MONGO_PWD}
       database: ${MONGO_DATABASE}
       authentication-database: admin
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: 'true'
+    path: /apis-docs
+
+
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          mongodb:
+            core:
+              MongoTemplate: DEBUG
