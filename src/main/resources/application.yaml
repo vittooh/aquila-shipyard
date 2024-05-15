@@ -1,4 +1,7 @@
 spring:
+  security:
+    basic:
+      enabled: false
   application:
     name : aquila-shipyard
   data:
