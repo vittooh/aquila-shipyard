@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/events")
+@CrossOrigin(origins = "*")
 public class EventsController {
 
     private final EventSensorService eventSensorService;
@@ -57,24 +58,17 @@ public class EventsController {
         );
     }
 
-    @GetMapping("/query")
-    public Page<EventSensorDTO> getEventsSensorByFilter(
-            @RequestParam(value = "sensorName", required = false) String sensorName,
-            @RequestParam(value = "startDate") LocalDateTime startDate,
-            @RequestParam(value = "endDate") LocalDateTime endDate,
+    @PostMapping("/query")
+    public Page<EventSensorDTO> queryEventsSensorByFilter(
+            @RequestBody EventSearchRequest eventSearchRequest,
             @PageableDefault Pageable pageable
     ) {
 
-        if (startDate == null) {
-            startDate = LocalDateTime.now();
-        }
-
-        if (endDate == null) {
-            endDate = LocalDateTime.now();
-        }
-
         Page<EventSensor> eventSensorList =
-                eventSensorService.queryByFilters(sensorName, startDate, endDate, pageable);
+                eventSensorService.queryByFilters(
+                        eventSearchRequest.sensorName,
+                        eventSearchRequest.startDate,
+                        eventSearchRequest.endDate, pageable);
 
         List<EventSensorDTO> events = eventSensorList.getContent().stream().map(
                 eventSensor -> new EventSensorDTO(

@@ -41,12 +41,10 @@ public class EventSensorService {
         startDate = startDate.atOffset(ZoneOffset.UTC).toLocalDateTime();
         endDate = endDate.atOffset(ZoneOffset.UTC).toLocalDateTime();
 
-        //TODO olhar isso.
-        if (sensorName.isBlank()) {
-            //exec query1 query por data
+        if (sensorName == null || sensorName.isBlank()) {
+            return eventSensorRepository.findByFilters(startDate, endDate, pageable);
         } else {
-            //sensorName e a data.
+            return eventSensorRepository.findByFiltersAndName(sensorName, startDate, endDate, pageable);
         }
-        return eventSensorRepository.findByFilters(sensorName, startDate, endDate, pageable);
     }
 }

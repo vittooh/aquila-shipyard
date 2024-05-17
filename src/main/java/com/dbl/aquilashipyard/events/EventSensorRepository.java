@@ -13,5 +13,8 @@ public interface EventSensorRepository extends MongoRepository<EventSensor, Stri
 
 
     @Query("{ 'sensorName': ?0, 'createDate': { '$gte': ?1, '$lte': ?2 } }")
-    Page<EventSensor> findByFilters(String sensorName, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
+    Page<EventSensor> findByFiltersAndName(String sensorName, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
+
+    @Query("{'createDate': { '$gte': ?0, '$lte': ?1 } }")
+    Page<EventSensor> findByFilters(LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 }
