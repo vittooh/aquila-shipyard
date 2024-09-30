@@ -61,7 +61,7 @@ public class EventsController {
     @PostMapping("/query")
     public Page<EventSensorDTO> queryEventsSensorByFilter(
             @RequestBody EventSearchRequest eventSearchRequest,
-            @PageableDefault Pageable pageable
+            @PageableDefault(size = 100000) Pageable pageable
     ) {
 
         Page<EventSensor> eventSensorList =
